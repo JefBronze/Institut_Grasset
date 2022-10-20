@@ -3,20 +3,22 @@
 #include <thread>
 #include <stdlib.h>
 #include <string>
+#include <vector>
 
 using namespace std;
 
-string touche; // Déclaration de variable de chaîne.J'ai choisi le type de chaîne pour limiter l'entrée de l'utilisateur.Le programme n'acceptera pas qu'aucune valeur autre que 1 ou 2 ou 3 ou 4 ou Q ou M ne soit attribuée à cette variable.
-string toucheC; // ...
-double N1; // ...
+string touche;  // Déclaration de variable de chaîne.J'ai choisi le type de chaîne pour limiter l'entrée de l'utilisateur.Le programme n'acceptera pas qu'aucune valeur autre que 1 ou 2 ou 3 ou 4 ou Q ou M ne soit attribuée à cette variable.
+string toucheC; // Déclaration d'une deuxième variable String pour fonctionner uniquement dans la portée de la calculatrice.
+double N1;      // Déclaration de cette double variable dans la portée générale du projet car elle devra être accessible dans plusieurs fonctions différentes.
 
 void menu();         // Il apporte la fonction de menu à la portée globale du programme.
 void validation();   // Il apporte la fonction de validation à la portée globale du programme.
 void choix();        // Il apporte la fonction de choix à la portée globale du programme.
-void choixC(); //...
+void choixC();       // Apporte la fonction de choix, mais maintenant uniquement dans le champ d'application de la calculatrice.
 void calculatrice(); // Il apporte la fonction calculatrice à la portée globale du programme.
 void PpPG();         // Il apporte la fonction Plus Petit-Grand à la portée globale du programme.
-void Aide();         // Il apporte la fonction de Aide à la portée globale du programme.
+void tri4();         // Il apporte la fonction Tri4 à la portée globale du programme.
+void Aide();         // Il apporte lsa fonction de Aide à la portée globale du programme.
 
 int main() // Introduction au programme et réception à l'utilisateur.
 {
@@ -86,7 +88,7 @@ void choix()
     }
     if (touche.find(c3) != string::npos)
     {
-        cout << "Triv4";
+        tri4();
     }
     if (touche.find(c4) != string::npos)
     {
@@ -220,7 +222,7 @@ void calculatrice() // Fonction de la Calculatrice - Option 1 du menu.
     choixC();
 }
 
-void PpPG() // arrumar essa função
+void PpPG() // Fonction du programme Plus Petit-Grand - Option 2 du menu.
 {
 
     system("cls");
@@ -250,8 +252,54 @@ void PpPG() // arrumar essa função
         cout << "\nLe plus petit des 2 nombres est: " << n2 << endl;
         cout << "\nLe plus grand des 2 nombres est: " << n1 << endl;
     }
-    cout << "\nAttendez un instant, nous vous dirigeons vers le menu principal." << n2 << endl;
-    this_thread::sleep_for(chrono::milliseconds(4000));
+    cout << "\nVous avez exactement 10 secondes pour verifier le resultat de ce programme (Et le temps est deja en cours dexecution). A la fin du comptage, ce programme se detruira! (Juste une blague pour se detendre, deaccord ?)" << endl;
+    this_thread::sleep_for(chrono::milliseconds(10000));
+    menu();
+}
+
+void tri4() // Fonction du programme Tri4 - Option 3 du menu.
+{
+    system("cls");
+    string A;
+    vector<string> vecteur(4);
+
+    char CA{'n'};
+    // Entrée de données
+    while (CA == 'n')
+    {
+        cout << "ORGANIONS VOS MOTS?\n"
+             << endl;
+
+        for (int i = 0; i < 4; i++)
+        {
+            cout << "Mot " << i + 1 << ": ";
+            cin >> vecteur[i];
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = i + 1; j < 4; j++)
+            {
+                if (vecteur[i] > vecteur[j])
+                {
+                    string A;
+                    A = vecteur[i];
+                    vecteur[i] = vecteur[j];
+                    vecteur[j] = A;
+                }
+            }
+        }
+
+        cout << endl << "ORDRE ALPHABETIQUE!\n"
+             << endl;
+        for (int i = 0; i < 4; i++)
+        {
+            cout << " Mot " << i + 1 << ": " << vecteur[i] << endl;
+        }
+        cout << "\nVous avez exactement 7 secondes pour verifier le resultat de ce programme (Et le temps est deja en cours dexecution). A la fin du comptage, ce programme se detruira! (Juste une blague pour se detendre, deaccord ?)" << endl;
+        this_thread::sleep_for(chrono::milliseconds(7000));
+        break;
+    }
     menu();
 }
 
