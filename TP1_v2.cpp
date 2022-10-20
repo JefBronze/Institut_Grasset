@@ -2,17 +2,21 @@
 #include <chrono>
 #include <thread>
 #include <stdlib.h>
+#include <string>
 
 using namespace std;
 
-string touche; // Déclaration de variable de chaîne.J'ai choisi le type de chaîne pour limiter l'entrée de l'utilisateur.Le programme n'acceptera pas qu'aucune valeur autre que 1 ou 2 ou 3 ou 4 ou Q ou M ne soit attribuée à cette variable. 
+string touche; // Déclaration de variable de chaîne.J'ai choisi le type de chaîne pour limiter l'entrée de l'utilisateur.Le programme n'acceptera pas qu'aucune valeur autre que 1 ou 2 ou 3 ou 4 ou Q ou M ne soit attribuée à cette variable.
+string toucheC; // ...
+double N1; // ...
 
-void menu(); // Il apporte la fonction de menu à la portée globale du programme.
-void validation(); // Il apporte la fonction de validation à la portée globale du programme.
-void choix(); // Il apporte la fonction de choix à la portée globale du programme.
+void menu();         // Il apporte la fonction de menu à la portée globale du programme.
+void validation();   // Il apporte la fonction de validation à la portée globale du programme.
+void choix();        // Il apporte la fonction de choix à la portée globale du programme.
+void choixC(); //...
 void calculatrice(); // Il apporte la fonction calculatrice à la portée globale du programme.
-void PpPG(); // Il apporte la fonction Plus Petit-Grand à la portée globale du programme.
-void Aide(); // Il apporte la fonction de Aide à la portée globale du programme.
+void PpPG();         // Il apporte la fonction Plus Petit-Grand à la portée globale du programme.
+void Aide();         // Il apporte la fonction de Aide à la portée globale du programme.
 
 int main() // Introduction au programme et réception à l'utilisateur.
 {
@@ -22,13 +26,13 @@ int main() // Introduction au programme et réception à l'utilisateur.
     cout << endl
          << "Attendez 2 secondes, sil vous plait." << endl;
     this_thread::sleep_for(chrono::milliseconds(2000)); // Ligne de code pour faire en sorte que le système attende automatiquement une temp spécifique pour rendre l'interaction plus fluide.
-    menu(); // Appelez la fonction de menu qui à son tour démarrera le programme à l'utilisateur.
+    menu();                                             // Appelez la fonction de menu qui à son tour démarrera le programme à l'utilisateur.
 }
 
 void menu() // Fonction qui apporte le menu et offre les options à l'utilisateur.
 {
-    system("cls"); // Nettoyez la console jusqu'à présent.Facilitant ainsi l'interaction.
-    this_thread::sleep_for(chrono::milliseconds(500));// Ligne de code pour faire en sorte que le système attende automatiquement une temp spécifique pour rendre l'interaction plus fluide.
+    system("cls");                                     // Nettoyez la console jusqu'à présent.Facilitant ainsi l'interaction.
+    this_thread::sleep_for(chrono::milliseconds(500)); // Ligne de code pour faire en sorte que le système attende automatiquement une temp spécifique pour rendre l'interaction plus fluide.
     cout << "-----------------------------------------------\n";
     cout << "    PROJET 1 - MINIALGO - MENU GENERAL\n";
     cout << "-----------------------------------------------\n";
@@ -44,7 +48,7 @@ void menu() // Fonction qui apporte le menu et offre les options à l'utilisateu
     cout << endl
          << "Entrez votre option et appuyez sur la touche ENTER sil vous plait: ";
     cin >> touche; // Ici, l'entrée de l'utilisateur est attribuée à la touche variale.
-    validation(); // La fonction de validation est appelée pour vérifier que l'entrée de l'utilisateur est valide.
+    validation();  // La fonction de validation est appelée pour vérifier que l'entrée de l'utilisateur est valide.
 }
 
 void validation()
@@ -98,78 +102,122 @@ void choix()
     }
 }
 
-void calculatrice() // Fonction de la Calculatrice - Option 1 du menu.
+void choixC()
 {
-    system("cls");
-    cout << "ARITHMETIQUE DE BASE\n"
-         << endl;
-    this_thread::sleep_for(chrono::milliseconds(500));
+    char c1 = 'q';
+    char c2 = 'm';
+    char c3 = 'n';
 
-    char operation = 0;
-    double premierN = 0;
-    double deuxiemeN = 0;
-    double solution = 0;
-
-    cout << "Premier nombre: ";
-    cin >> premierN;
-
-    /*if (touche.size() == 1)
+    if (toucheC.find(c1) != string::npos)
     {
-        choix();
+        exit(0);
+    }
+    if (toucheC.find(c2) != string::npos)
+    {
+        menu();
+    }
+    if (toucheC.find(c3) != string::npos)
+    {
+        calculatrice();
     }
     else
     {
-        cout << endl
-             << "Erreur! Vous navez insere aucune des options presentees. Reessayez en 1 seconde." << endl;
-        this_thread::sleep_for(chrono::milliseconds(1500));
-        menu();
+        N1 = stod(toucheC);
     }
-    return;*/
+}
+
+void calculatrice() // Fonction de la Calculatrice - Option 1 du menu.
+{
+    char operation = 0;
+    double N2 = 0;
+    double solution = 0;
+
+    system("cls");
+    this_thread::sleep_for(chrono::milliseconds(500));
+
+    cout << "-----------------------------------------------------------\n";
+    cout << "        PROJET 1 - MINIALGO - CALCULATRICE (+ - x /)       \n";
+    cout << "-----------------------------------------------------------\n";
+    cout << "Nombre 1: \n";
+    cout << "Nombre 2: \n";
+    cout << "Operation:\n";
+    cout << "-----------------------------------------------------------\n";
+    cout << "Resultat:\n";
+    cout << " \n";
+    cout << "-----------------------------------------------------------\n";
+    cout << "Presse 'q' pour quitter le programme\n";
+    cout << "Presse 'm' pour retour au menu initial\n";
+    cout << "Appuyez sur 'n' pour faire un nouveau calcul\n";
+    cout << "-----------------------------------------------------------\n";
+
+    cout << "Entrez le premier nombre ou quelque autre des commandes affichees: ";
+    cin >> toucheC;
+    choixC();
 
     cout << "Entrez le deuxieme nombre: ";
-    cin >> deuxiemeN;
+    cin >> N2;
 
     cout << endl
          << "Entrez une operation a effectuer, choisissez-en une dans cette liste: (+) (-) (/) (*) \n";
-    cout << "Entrez votre operation: ";
     cin >> operation;
-    cin.ignore();
 
     if (operation != '+' && operation != '-' && operation != '/' && operation != '*')
     {
         cout << endl
-             << "Operation invalide! Avorter!" << endl
-             << "Appuyez sur Entree pour sortir.";
-        cin.get();
+             << "Operation invalide! Entrez lun des quatre operateurs arithmetiques!" << endl;
+        cin >> operation;
+        if (operation != '+' && operation != '-' && operation != '/' && operation != '*')
+        {
+            cout << "Ok, tu ne veux pas calculer quoi que ce soit ? Au revoir!";
+            exit(0);
+        }
     }
 
     if (operation == '+')
-        solution = premierN + deuxiemeN;
+        solution = N1 + N2;
 
     else if (operation == '-')
-        solution = premierN - deuxiemeN;
+        solution = N1 - N2;
 
     else if (operation == '*')
-        solution = premierN * deuxiemeN;
+        solution = N1 * N2;
 
     else if (operation == '/')
     {
-        if (deuxiemeN == 0)
+        if (N2 == 0)
         {
             cout << endl
-                 << "Vous ne pouvez pas diviser par zero! Avorter!";
-            cout << endl
-                 << "Appuyez sur Entree pour sortir.";
-            cin.get();
+                 << "Vous ne pouvez pas diviser par zero!" << endl;
+            cout << "Entrez un nombre plus ou moins de zero." << endl;
+            cin >> N2;
+            if (N2 == 0)
+            {
+                cout << endl
+                     << "Ok, il semble que vous ne vouliez rien partager vraiment. Au revoir!";
+                exit(0);
+            }
         }
-        solution = premierN / deuxiemeN;
+        solution = N1 / N2;
     }
 
-    cout << endl
-         << "Votre reponse est: " << solution << endl
-         << "Appuyez sur Entree pour sortir." << endl;
-    cin.get();
-    menu();
+    system("cls");
+    this_thread::sleep_for(chrono::milliseconds(200));
+    cout << "-----------------------------------------------------------\n";
+    cout << "        PROJET 1 - MINIALGO - CALCULATRICE (+ - x /)       \n";
+    cout << "-----------------------------------------------------------\n";
+    cout << "Nombre 1: " << N1 << "\n";
+    cout << "Nombre 2: " << N2 << "\n";
+    cout << "Operation: " << operation << "\n";
+    cout << "-----------------------------------------------------------\n";
+    cout << "Resultat: " << solution << "\n";
+    cout << " \n";
+    cout << "-----------------------------------------------------------\n";
+    cout << "Presse 'q' pour quitter le programme\n";
+    cout << "Presse 'm' pour retour au menu initial\n";
+    cout << "Presse 'n' pour recommencer a calculer!\n";
+    cout << "-----------------------------------------------------------\n";
+    cin >> toucheC;
+    choixC();
 }
 
 void PpPG() // arrumar essa função
